@@ -10,7 +10,7 @@ class Appointment(models.Model):
 
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='patient_appointments')
     doctor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doctor_appointments')
-    schedueld_at = models.DateTimeField()
+    scheduled_at = models.DateTimeField()
     reason = models.CharField(max_length=255)
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.PENDING)
@@ -20,5 +20,5 @@ class Appointment(models.Model):
         ordering = ['scheduled_at']
 
     def __str__(self):
-        return f'{self.patient} with {self.doctor} @ {self.schedueld_at:%d %b %Y %H:%M}'
+        return f'{self.patient} with {self.doctor} @ {self.scheduled_at:%d %b %Y %H:%M}'
 
