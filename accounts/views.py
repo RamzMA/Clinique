@@ -18,7 +18,7 @@ def login_view(request):
             return redirect('dashboard')
         else:
             messages.error(request, 'Invalid username or password.')
-        return render(request, 'accounts/login.html', {'form': True})
+    return render(request, 'accounts/login.html', {'form': True})
 
 def logout_view(request):
     logout(request)

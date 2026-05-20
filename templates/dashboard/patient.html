@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}| My Portal{% endblock %}
+{% block page_title %}My Health Portal{% endblock %}
+{% block content %}
+<div class="grid grid-cols-2 gap-4 mb-6">
+  <div class="card">
+    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">Next Appointment</p>
+    {% if next_appointment %}
+      <p class="text-lg font-bold text-slate-800">{{ next_appointment.scheduled_at|date:"d M Y" }}</p>
+      <p class="text-sm text-slate-500">Dr. {{ next_appointment.doctor.get_full_name }}</p>
+    {% else %}
+      <p class="text-slate-400 text-sm">No upcoming appointments</p>
+      <a href="/appointments/book/" class="btn-primary inline-block mt-2 text-xs">Book now</a>
+    {% endif %}
+  </div>
+  <div class="card">
+    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">My Appointments</p>
+    <p class="text-3xl font-bold text-slate-800">{{ appointment_count|default:"0" }}</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="font-semibold text-slate-800">Appointment History</h2>
+    <a href="/appointments/book/" class="btn-primary text-xs">+ Book Appointment</a>
+  </div>
+  {% if appointments %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-xs text-slate-500 uppercase tracking-wider border-b border-slate-100">
+          <th class="pb-2">Doctor</th>
+          <th class="pb-2">Date</th>
+          <th class="pb-2">Reason</th>
+          <th class="pb-2">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-50">
+        {% for appt in appointments %}
+        <tr>
+          <td class="py-3 font-medium">Dr. {{ appt.doctor.get_full_name }}</td>
+          <td class="py-3 mono text-slate-500">{{ appt.scheduled_at|date:"d M Y H:i" }}</td>
+          <td class="py-3 text-slate-600">{{ appt.reason }}</td>
+          <td class="py-3"><span class="status-{{ appt.status|lower }}">{{ appt.get_status_display }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-slate-400 text-sm">No appointments yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

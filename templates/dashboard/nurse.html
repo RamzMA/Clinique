@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}| Dashboard{% endblock %}
+{% block page_title %}Good morning, {{ user.get_full_name }}{% endblock %}
+{% block content %}
+<div class="grid grid-cols-3 gap-4">
+  <div class="card">
+    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">Total Patients</p>
+    <p class="text-3xl font-bold">{{ patient_count|default:"—" }}</p>
+  </div>
+  <div class="card">
+    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1">Today's Appointments</p>
+    <p class="text-3xl font-bold">{{ today_appointments|default:"—" }}</p>
+  </div>
+  <div class="card">
+    <a href="/patients/" class="btn-primary inline-block">View Patients →</a>
+  </div>
+</div>
+{% endblock %}

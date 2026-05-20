@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}| Admin{% endblock %}
+{% block page_title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="grid grid-cols-4 gap-4">
+  <div class="card"><p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Total Users</p><p class="text-3xl font-bold">{{ user_count|default:"—" }}</p></div>
+  <div class="card"><p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Patients</p><p class="text-3xl font-bold">{{ patient_count|default:"—" }}</p></div>
+  <div class="card"><p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Doctors</p><p class="text-3xl font-bold">{{ doctor_count|default:"—" }}</p></div>
+  <div class="card"><p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Nurses</p><p class="text-3xl font-bold">{{ nurse_count|default:"—" }}</p></div>
+</div>
+<div class="mt-4">
+  <a href="/admin/" class="btn-primary inline-block">Django Admin Panel →</a>
+</div>
+{% endblock %}
