@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block auth_content %}
+<div class="min-h-screen bg-slate-900 flex">
+
+  <!-- Left panel -->
+  <div class="hidden lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-indigo-600 to-indigo-800">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+        </svg>
+      </div>
+      <span class="text-white font-bold text-xl tracking-tight">Clinique</span>
+    </div>
+    <div>
+      <h2 class="text-white text-4xl font-bold leading-tight mb-4">
+        Healthcare,<br/>simplified.
+      </h2>
+      <p class="text-indigo-200 text-lg">
+        Secure patient records, appointment management, and clinical coordination all in one place.
+      </p>
+    </div>
+    <div class="flex gap-4">
+      <div class="bg-white/10 rounded-xl px-4 py-3 text-center">
+        <p class="text-white font-bold text-xl">RBAC</p>
+        <p class="text-indigo-200 text-xs">Role-based access</p>
+      </div>
+      <div class="bg-white/10 rounded-xl px-4 py-3 text-center">
+        <p class="text-white font-bold text-xl">HIPAA</p>
+        <p class="text-indigo-200 text-xs">Ready design</p>
+      </div>
+      <div class="bg-white/10 rounded-xl px-4 py-3 text-center">
+        <p class="text-white font-bold text-xl">99.9%</p>
+        <p class="text-indigo-200 text-xs">Uptime target</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel / form -->
+  <div class="flex-1 flex items-center justify-center p-8">
+    <div class="w-full max-w-sm">
+      <div class="mb-8">
+        <h3 class="text-white text-2xl font-bold mb-1">Sign in to Clinique</h3>
+        <p class="text-slate-400 text-sm">Enter your credentials to continue</p>
+      </div>
+
+      <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div>
+          <label class="block text-slate-400 text-xs font-medium mb-1.5 uppercase tracking-wider">Username</label>
+          <input type="text" name="username" required
+            class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white
+                   text-sm placeholder-slate-500 focus:outline-none focus:ring-2
+                   focus:ring-indigo-500 focus:border-transparent"/>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 text-xs font-medium mb-1.5 uppercase tracking-wider">Password</label>
+          <input type="password" name="password" required
+            class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white
+                   text-sm placeholder-slate-500 focus:outline-none focus:ring-2
+                   focus:ring-indigo-500 focus:border-transparent"/>
+        </div>
+        
+        {% if form.errors %}
+          <p class="text-red-400 text-sm">Invalid username or password.</p>
+        {% endif %}
+        <button type="submit"
+          class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold
+                 py-2.5 rounded-lg transition-colors duration-150 text-sm mt-2">
+          Sign in →
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
