@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}| Patients{% endblock %}
+{% block page_title %}Patients{% endblock %}
+{% block content %}
+
+<div class="flex items-center justify-between mb-6">
+  <form method="get" class="flex items-center gap-2">
+    <input
+      type="text" name="q" value="{{ query }}"
+      placeholder="Search by name…"
+      class="input-field w-72"/>
+    <button type="submit" class="btn-primary">Search</button>
+    {% if query %}
+      <a href="/patients/" class="btn-ghost">Clear</a>
+    {% endif %}
+  </form>
+  <p class="text-sm text-slate-500">{{ patients.count }} patient{{ patients.count|pluralize }}</p>
+</div>
+
+{% if patients %}
+<div class="card p-0 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 border-b border-slate-100">
+      <tr class="text-left text-xs text-slate-500 uppercase tracking-wider">
+        <th class="px-6 py-3">Patient</th>
+        <th class="px-6 py-3">Date of Birth</th>
+        <th class="px-6 py-3">Blood Type</th>
+        <th class="px-6 py-3">Emergency Contact</th>
+        <th class="px-6 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-50">
+      {% for patient in patients %}
+      <tr class="hover:bg-slate-50 transition-colors">
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold shrink-0">
+              {{ patient.user.first_name.0|upper }}{{ patient.user.last_name.0|upper }}
+            </div>
+            <div>
+              <p class="font-medium text-slate-800">{{ patient.user.get_full_name }}</p>
+              <p class="text-xs text-slate-400">{{ patient.user.email }}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-4 mono text-slate-600">{{ patient.date_of_birth|date:"d M Y" }}</td>
+        <td class="px-6 py-4">
+          {% if patient.blood_type %}
+            <span class="bg-red-50 text-red-700 text-xs font-bold px-2 py-1 rounded-full">{{ patient.blood_type }}</span>
+          {% else %}
+            <span class="text-slate-400">—</span>
+          {% endif %}
+        </td>
+        <td class="px-6 py-4 text-slate-600">
+          {% if patient.emergency_contact_name %}
+            <p class="text-sm">{{ patient.emergency_contact_name }}</p>
+            <p class="text-xs text-slate-400 mono">{{ patient.emergency_contact_phone }}</p>
+          {% else %}
+            <span class="text-slate-400">—</span>
+          {% endif %}
+        </td>
+        <td class="px-6 py-4 text-right">
+          <a href="/patients/{{ patient.pk }}/" class="text-indigo-600 text-xs font-medium hover:underline">View record →</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <div class="card text-center py-12">
+    <p class="text-slate-400">No patients found{% if query %} for "{{ query }}"{% endif %}.</p>
+  </div>
+{% endif %}
+{% endblock %}
