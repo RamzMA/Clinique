@@ -10,7 +10,7 @@ class Department(models.Model):
     
 class StaffProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    Department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     specialisation = models.CharField(max_length=100, blank=True)
     licence_number = models.CharField(max_length=50, blank=True)
     bio = models.TextField(blank=True)
