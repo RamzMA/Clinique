@@ -14,6 +14,7 @@ class Patient(models.Model):
     address = models.TextField(blank=True)
     emergency_contact_name = models.CharField(max_length=100, blank=True)
     emergency_contact_phone = models.CharField(max_length=20, blank=True)
+    medical_notes = models.TextField(blank=True, help_text='Visible to clinical staff only')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
